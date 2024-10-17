@@ -98,7 +98,7 @@ textarea {
 
 input[type="submit"] {
     padding: 10px;
-    background-color: #4CAF50;
+    background-color: rgb(119, 84, 38);
     color: white;
     border: black;
     border-radius: 4px;
@@ -107,5 +107,18 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: burlywood
+}
+
+.pindakaas {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.sinterklaas {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    flex-wrap: wrap;
 }
