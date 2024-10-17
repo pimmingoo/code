@@ -118,7 +118,19 @@ input[type="submit"]:hover {
 
 .sinterklaas {
     display: flex;
-    justify-content: right;
+    justify-content: flex-end;
     align-items: center;
-    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.sinterklaas img {
+    width: 600px;
+    height: auto;
+    top: 0;
+    right: 0;
+    margin: 20px;
+}
+
+.sinterklaas h1 {
+    align-content: flex-start;
 }
