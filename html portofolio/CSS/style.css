@@ -1,69 +1,51 @@
+/* Globale stijlen */
+body {
+    margin: 0;
+    background-color: beige;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px; /* Specificeer een standaard lettergrootte in pixels */
+    text-align: center;
+    font-weight: normal;
+}
+
+/* Lijststijlen */
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     background-color: peachpuff;
-    overflow:hidden;
+    overflow: hidden;
     border-bottom: 2px solid lightcoral;
 }
-body {
-    margin: 0;
-    background-color: beige;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size:  normal;
-    text-align: center;
-    font-weight: normal;
-}
-th,td {
-    border: 1px solid #000;
-}
+
 li {
-    display: inline;
-    float: left;
+    display: flex;
+    float :left;
 }
-a {
-    display: block;
-    padding: 8px;
-    background-color: peachpuff;
-}
+
 li a {
     display: block;
     color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    background-color: peachpuff;
 }
+
 li a:hover {
     background-color: beige;
 }
+
 a.active {
     background-color: burlywood;
 }
 
-.banaan {
-    display: flex;
-    justify-content: center;
+/* Tabelstijlen */
+th, td {
+    border: 1px solid #000;
 }
 
-.appel {
-    display: flex;
-    justify-content: center;
-}
-
-.sinasapppel {
-    display: flex;
-    justify-content: center;
-}
-table {
-    display: flex;
-    justify-content: center;
-}
-
-.piemel {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/* Formulierstijlen */
 form {
     display: flex;
     justify-content: center;
@@ -81,9 +63,7 @@ label {
     font-weight: bold;
 }
 
-input[type="text"],
-input[type="email"],
-textarea {
+input[type="text"], input[type="email"], textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -100,16 +80,23 @@ input[type="submit"] {
     padding: 10px;
     background-color: rgb(119, 84, 38);
     color: white;
-    border: black;
+    border: none; /* Geen rand nodig hier */
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
 }
 
 input[type="submit"]:hover {
-    background-color: burlywood
+    background-color: burlywood;
 }
 
+/* Flexbox elementen */
+.banaan, .appel, .sinasapppel, table, .piemel {
+    display: flex;
+    justify-content: center;
+}
+
+/* Specifieke layout voor bepaalde klassen */
 .pindakaas {
     display: flex;
     justify-content: left;
@@ -126,11 +113,27 @@ input[type="submit"]:hover {
 .sinterklaas img {
     width: 600px;
     height: auto;
-    top: 0;
-    right: 0;
     margin: 20px;
 }
 
 .sinterklaas h1 {
-    align-content: flex-start;
+    align-self: flex-start;
+}
+
+/* Media queries voor responsief ontwerp */
+@media (max-width: 768px) {
+    .sinterklaas {
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+    }
+
+    .sinterklaas img {
+        width: 100%;
+        height: auto;
+    }
+
+    .sinterklaas h1 {
+        text-align: center;
+    }
 }
