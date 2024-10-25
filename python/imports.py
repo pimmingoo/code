@@ -68,8 +68,9 @@ def draw():
     sinterklaas.begin_fill()
     sinterklaas.circle(100, 360, 360)
     sinterklaas.end_fill()
-    sinterklaas.speed(10)
-    t.done()
+    sinterklaas.speed(0)
+    time.sleep(3)
+    t.bye()
 
 def main():
     while True:
