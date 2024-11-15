@@ -121,19 +121,6 @@ input[type="submit"]:hover {
 }
 
 /* Media queries voor responsief ontwerp */
-@media (max-width: 768px) {
-    .sinterklaas {
-        flex-direction: column;
-        align-items: center;
-        margin: 10px;
-    }
-
-    .sinterklaas img {
-        width: 100%;
-        height: auto;
-    }
-
-    .sinterklaas h1 {
-        text-align: center;
-    }
-}
+@media (max-width: 600px) {
+    body {
+        background-color: lightblue;
