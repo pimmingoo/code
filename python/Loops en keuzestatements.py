@@ -31,5 +31,3 @@ def sterren():
             print(sterren.center(2 * n - 1))
             time.sleep(3)
 
-
-sterren()
