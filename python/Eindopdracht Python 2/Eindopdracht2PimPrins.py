@@ -1,0 +1,99 @@
+import time
+import os
+
+boekenlijst = []
+
+def clear_console(): # clears the console
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def main():  # geeft het menu weer
+    while True:
+        clear_console()
+        choice = None  # zorgt er voor dat de choice geen verkeerde waarde krijgt
+        try:
+            print("1. Boek toevoegen")
+            print("2. Boek zoeken")
+            print("3. Boek verwijderen")
+            print("4. Boekenlijst bekijken")
+            print("5. Opslaan naar bestand")
+            print("6. Inladen van bestand")
+            print("7. Statistieken")
+            print("8. Afsluiten")
+            choice = int(input("Kies een optie (1-8): "))
+
+        except ValueError:
+            print("Fout: Ongeldige invoer.")
+            time.sleep(2)
+            continue
+
+        finally:
+
+            if choice not in range(0, 9):
+                print("Fout: Kies een geldige optie tussen 1 en 8.")
+                time.sleep(2)
+                continue
+
+            # Voer de actie uit op basis van de keuze
+            if choice == 1:
+                time.sleep(1)
+                clear_console()
+                add_book(boekenlijst)
+
+            elif choice == 2:
+                time.sleep(1)
+                clear_console()
+                search_book(boekenlijst)
+
+            elif choice == 3:
+                time.sleep(1)
+                clear_console()
+                remove_book()
+
+            elif choice == 4:
+                time.sleep(1)
+                clear_console()
+                view_books()
+
+            elif choice == 5:
+                time.sleep(1)
+                clear_console()
+                save_to_file()
+
+            elif choice == 6:
+                time.sleep(1)
+                clear_console()
+                load_from_file()
+
+            elif choice == 7:
+                time.sleep(1)
+                clear_console()
+                show_statistics()
+
+            elif choice == 8:
+                clear_console()
+                print("Programma wordt afgesloten...")
+                time.sleep(0.5)
+                clear_console()
+                print("Programma wordt afgesloten..")
+                time.sleep(0.5)
+                clear_console()
+                print("Programma wordt afgesloten.")
+                time.sleep(0.5)
+                break
+
+def add_book(boekenlijst): # voegt boek to aan de lijst
+
+    title = input("Geef het titel van het boek: ")
+    author = input("Geef het auteur van het boek: ")
+    publication_year = int(input("Geef het jaar waarin het boek is gemaakt: "))
+
+    boekenlijst.append({"title": title, "Auteur": author, "Jaar": publication_year})
+
+    print("Boek is toegevoegd.")
+    time.sleep(1)
+
+def search_book(boekenlijst): # zoeken in de lijst van boeken
+    title = input("Geef het titel van het boek: ")
+
+
+main()

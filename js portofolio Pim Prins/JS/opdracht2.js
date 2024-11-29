@@ -20,3 +20,4 @@ function leeftijdcal() {
         resultaat.innerText = "Ongeldig geboortedatum."
     }
 }
+//@Pim Prins
