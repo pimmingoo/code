@@ -47,12 +47,12 @@ def main():  # geeft het menu weer
             elif choice == 3:
                 time.sleep(1)
                 clear_console()
-                remove_book()
+                remove_book(boekenlijst)
 
             elif choice == 4:
                 time.sleep(1)
                 clear_console()
-                view_books()
+                view_books(boekenlijst)
 
             elif choice == 5:
                 time.sleep(1)
@@ -79,6 +79,8 @@ def main():  # geeft het menu weer
                 clear_console()
                 print("Programma wordt afgesloten.")
                 time.sleep(0.5)
+                print("Programma wordt afgesloten")
+                clear_console()
                 break
 
 def add_book(boekenlijst): # voegt boek to aan de lijst
@@ -94,6 +96,38 @@ def add_book(boekenlijst): # voegt boek to aan de lijst
 
 def search_book(boekenlijst): # zoeken in de lijst van boeken
     title = input("Geef het titel van het boek: ")
+    try:
+        for boek in boekenlijst:
+            if boek["title"] == title:
+                print(f"Titel: {boek['title']}")
+                print(f"Auteur: {boek['Auteur']}")
+                print(f"Jaar: {boek['Jaar']}")
+                time.sleep(3)
+            
+    except KeyError:
+        print("Boek met dit titel is niet gevonden.")
+        time.sleep(2)
 
+def remove_book(boekenlijst): # verwijdert boek uit de lijst
+    title = input("Geef het titel van het boek: ")
+    for boek in boekenlijst:
+        if boek["title"] == title:
+            del boek["title"]
+            print("Boek is verwijderd.")
+            time.sleep(1)
+
+def view_books(boekenlijst): # bekijkt de lijst van boeken
+    if len(boekenlijst) == 0:
+        print("Er zijn nog geen boeken in de lijst.")
+        time.sleep(2)
+    else:
+        for boek in boekenlijst:
+            print(f"Titel: {boek['title']}")
+            print(f"Auteur: {boek['Auteur']}")
+            print(f"Jaar: {boek['Jaar']}")
+            print("--------------------")
+        time.sleep(3)
+
+                                                                                                                                                                                                                                                                                                                                                                                                                             
 
 main()
