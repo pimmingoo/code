@@ -23,7 +23,6 @@ def main():  # geeft het menu weer
 
         except ValueError:
             print("Fout: Ongeldige invoer.")
-            time.sleep(2)
             continue
 
         finally:
@@ -57,12 +56,12 @@ def main():  # geeft het menu weer
             elif choice == 5:
                 time.sleep(1)
                 clear_console()
-                save_to_file()
+                save_to_file(boekenlijst)
 
             elif choice == 6:
                 time.sleep(1)
                 clear_console()
-                load_from_file()
+                load_from_file(boekenlijst)
 
             elif choice == 7:
                 time.sleep(1)
@@ -112,22 +111,50 @@ def remove_book(boekenlijst): # verwijdert boek uit de lijst
     title = input("Geef het titel van het boek: ")
     for boek in boekenlijst:
         if boek["title"] == title:
-            del boek["title"]
+            boekenlijst.remove(boek)
             print("Boek is verwijderd.")
+            time.sleep(1)
+
+        else:
+            print("boek is niet gevonden.")
             time.sleep(1)
 
 def view_books(boekenlijst): # bekijkt de lijst van boeken
     if len(boekenlijst) == 0:
         print("Er zijn nog geen boeken in de lijst.")
         time.sleep(2)
+
     else:
         for boek in boekenlijst:
             print(f"Titel: {boek['title']}")
             print(f"Auteur: {boek['Auteur']}")
             print(f"Jaar: {boek['Jaar']}")
             print("--------------------")
-        time.sleep(3)
+        doorgaan = input("Click Enter om doortegaan")
 
-                                                                                                                                                                                                                                                                                                                                                                                                                             
+        if doorgaan == "":
+            time.sleep(1)
+
+        else:
+            time.sleep(1)
+            
+        
+
+def save_to_file(boekenlijst): # slaat de lijst van boeken op in een bestand
+    with open(os.path.join(os.path.dirname(__file__), "boekenlijst.csv"), 'a') as file: # dit zorgt er voor dat het bestand
+        for boek in boekenlijst:                                                        # altijd word geopent in de zelfde map 
+            file.write(f"{boek['title']};{boek['Auteur']};{boek['Jaar']}\n")            # waar het script in staat
+            boekenlijst.clear()
+            print("Boek/Boeken zijn opgeslagen.")
+            time.sleep(2)
+
+def load_from_file(boekenlijst): # laadt de lijst van boeken uit een bestand
+        with open(os.path.join(os.path.dirname(__file__), "boekenlijst.csv"), 'r') as file:
+            next(file)
+            for line in file:
+                title, author, publication_year = line.strip().split(';')
+                boekenlijst.append({"title": title, "Auteur": author, "Jaar": int(publication_year)})
+        print("Boek/Boeken zijn ingeladen.")
+        time.sleep(2)                                                                                                                                                                                                                                                                                                              
 
 main()
