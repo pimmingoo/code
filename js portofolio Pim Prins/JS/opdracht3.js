@@ -8,5 +8,4 @@ function checkform() {
     console.log("E-mail:", email);
     console.log("Telefoon:", phone);
     console.log("Bericht:", message);
-
 }

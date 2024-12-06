@@ -16,10 +16,9 @@ def main():  # geeft het menu weer
             print("3. Boek verwijderen")
             print("4. Boekenlijst bekijken")
             print("5. Opslaan naar bestand")
-            print("6. Inladen van bestand")
-            print("7. Statistieken")
-            print("8. Afsluiten")
-            choice = int(input("Kies een optie (1-8): "))
+            print("6. Statistieken")
+            print("7. Afsluiten")
+            choice = int(input("Kies een optie (1-7): "))
 
         except ValueError:
             print("Fout: Ongeldige invoer.")
@@ -61,14 +60,9 @@ def main():  # geeft het menu weer
             elif choice == 6:
                 time.sleep(1)
                 clear_console()
-                load_from_file(boekenlijst)
+                show_statistics(boekenlijst)
 
             elif choice == 7:
-                time.sleep(1)
-                clear_console()
-                show_statistics()
-
-            elif choice == 8:
                 clear_console()
                 print("Programma wordt afgesloten...")
                 time.sleep(0.5)
@@ -79,6 +73,7 @@ def main():  # geeft het menu weer
                 print("Programma wordt afgesloten.")
                 time.sleep(0.5)
                 print("Programma wordt afgesloten")
+                time.sleep(0.5)
                 clear_console()
                 break
 
@@ -107,17 +102,39 @@ def search_book(boekenlijst): # zoeken in de lijst van boeken
         print("Boek met dit titel is niet gevonden.")
         time.sleep(2)
 
-def remove_book(boekenlijst): # verwijdert boek uit de lijst
-    title = input("Geef het titel van het boek: ")
-    for boek in boekenlijst:
-        if boek["title"] == title:
-            boekenlijst.remove(boek)
-            print("Boek is verwijderd.")
-            time.sleep(1)
-
+def remove_book(boekenlijst): # verwijdert boek uit boekenlijst en het bestand
+    # Vraag de gebruiker naar de titel van het boek
+    title = input("Geef de titel van het boek: ")
+    file_path = os.path.join(os.path.dirname(__file__), "boekenlijst.csv")
+    
+    boek_gevonden = False
+    
+    # Lees het bestand in en filter de regels
+    with open(file_path, 'r') as file:
+        lijnen = file.readlines()
+    
+    nieuwe_lijnen = []
+    for lijn in lijnen:
+        if lijn.strip().startswith(title + ";"):  # Controleert of de regel met de titel begint
+            boek_gevonden = True
         else:
-            print("boek is niet gevonden.")
-            time.sleep(1)
+            nieuwe_lijnen.append(lijn) 
+
+    if boek_gevonden:
+        # Schrijf de bijgewerkte lijst terug naar het bestand
+        with open(file_path, 'w',) as file:
+            file.writelines(nieuwe_lijnen)
+        
+        # Verwijder het boek ook uit de lijst
+        for boek in boekenlijst:
+            if boek["title"] == title:
+                boekenlijst.remove(boek)
+             
+        print("Boek is verwijderd.")
+    else:
+        print("Boek niet gevonden.")
+    
+    time.sleep(1)
 
 def view_books(boekenlijst): # bekijkt de lijst van boeken
     if len(boekenlijst) == 0:
@@ -133,28 +150,75 @@ def view_books(boekenlijst): # bekijkt de lijst van boeken
         doorgaan = input("Click Enter om doortegaan")
 
         if doorgaan == "":
-            time.sleep(1)
+            time.sleep(0.5)
 
         else:
-            time.sleep(1)
+            time.sleep(0.5)
             
         
 
-def save_to_file(boekenlijst): # slaat de lijst van boeken op in een bestand
-    with open(os.path.join(os.path.dirname(__file__), "boekenlijst.csv"), 'a') as file: # dit zorgt er voor dat het bestand
-        for boek in boekenlijst:                                                        # altijd word geopent in de zelfde map 
-            file.write(f"{boek['title']};{boek['Auteur']};{boek['Jaar']}\n")            # waar het script in staat
-            boekenlijst.clear()
-            print("Boek/Boeken zijn opgeslagen.")
-            time.sleep(2)
+def save_to_file(boekenlijst): 
+    file_path = os.path.join(os.path.dirname(__file__), "boekenlijst.csv")
+    
+    # Lees de bestaande boeken uit het bestand
+    bestaande_boeken = set()
+    if os.path.exists(file_path):
+        with open(file_path, 'r') as file:
+            for line in file:
+                bestaande_boeken.add(line.strip()) 
+    
+    # Open het bestand in append-modus
+    with open(file_path, 'a') as file:
+        boeken_opgeslagen = False
+        for boek in boekenlijst:
+            boek_regel = f"{boek['title']};{boek['Auteur']};{boek['Jaar']}"
+            if boek_regel not in bestaande_boeken:  # Controleer of het boek nog niet bestaat
+                file.write(boek_regel + "\n")
+                bestaande_boeken.add(boek_regel)  # Voeg toe aan de lijst van opgeslagen boeken
+                boeken_opgeslagen = True
+        
+        if boeken_opgeslagen:
+            print("Nieuwe boeken zijn opgeslagen.")
+        else:
+            print("Geen nieuwe boeken om op te slaan.")
+    
+    time.sleep(2)
+
 
 def load_from_file(boekenlijst): # laadt de lijst van boeken uit een bestand
         with open(os.path.join(os.path.dirname(__file__), "boekenlijst.csv"), 'r') as file:
             next(file)
-            for line in file:
-                title, author, publication_year = line.strip().split(';')
-                boekenlijst.append({"title": title, "Auteur": author, "Jaar": int(publication_year)})
-        print("Boek/Boeken zijn ingeladen.")
-        time.sleep(2)                                                                                                                                                                                                                                                                                                              
 
+            try:
+                for line in file:
+                    title, author, publication_year = line.strip().split(';')
+                    boekenlijst.append({"title": title, "Auteur": author, "Jaar": int(publication_year)})
+                print("Boek/Boeken zijn ingeladen.")
+                time.sleep(2)
+
+            except ValueError:
+                print("Er is een fout opgetreden of je hebt geen boeken.")
+
+                next_input = input("Klik Enter om door te gaan")
+                if next_input == "":
+                    time.sleep(0.5)
+                else:
+                    time.sleep(0.5)
+                                                                                                                                                                                                                                                                                                                       
+def show_statistics(boekenlijst):
+    auteurs = {boek['Auteur'] for boek in boekenlijst}
+
+    print("Statistieken:")
+    print(f"Aantal boeken: {len(boekenlijst)}")
+    print(f"Aantal auteurs: {len(auteurs)}")
+
+    doorgaan = input("Click Enter om doortegaan")
+
+    if doorgaan == "":
+        time.sleep(0.5)
+
+    else:
+        time.sleep(0.5)
+
+load_from_file(boekenlijst)
 main()

@@ -1,0 +1,147 @@
+/* Navigatie balk */
+nav {
+    background-color: #3d2603;
+    overflow: hidden;
+} 
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    flex: 1;
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: #6b4c1d;
+}
+
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #edd1af, #edd1af);
+}
+
+/* Algemene styling voor de About Us-sectie */
+.about-us {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.about-us h1 {
+    color: #3d2603;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.about-us p {
+    font-size: 1.2em;
+    color: #6b4c1d;
+    margin-bottom: 40px;
+}
+
+.team {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.team-member {
+    background-color: #edd1af;
+    border: 2px solid #6b4c1d;
+    border-radius: 10px;
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+}
+
+.team-member img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    border: 4px solid #6b4c1d;
+    margin-bottom: 15px;
+}
+
+.team-member h3 {
+    color: #3d2603;
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.team-member p {
+    color: #6b4c1d;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+/* Pim ccs */
+
+input.afspraak {
+    display: flex;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffe2be;
+    border: 2px solid #6b4c1d;
+    border-radius: 10px;
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+}
+
+button {
+    display: flex;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #3d2603; /* Groene kleur */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #6b4c1d; /* Donkerder groen */
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.afspraak1 {
+    display: flex;
+    justify-content: center;
+    border: 2px solid #6b4c1d;
+    border-radius: 5px;      
+    padding: 10px;           
+    margin: 20px;            
+    width: fit-content;         
+}
