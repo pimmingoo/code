@@ -1,0 +1,316 @@
+/* Navigatie balk */
+nav {
+    background-color: #3d2603;
+    overflow: hidden;
+} 
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    flex: 1;
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: #6b4c1d;
+}
+
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, #edd1af, #edd1af);
+}
+
+/* Algemene styling voor de About Us-sectie */
+.about-us {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.about-us h1 {
+    color: #3d2603;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.about-us p {
+    font-size: 1.2em;
+    color: #6b4c1d;
+    margin-bottom: 40px;
+}
+
+.team {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.team-member {
+    background-color: #edd1af;
+    border: 2px solid #6b4c1d;
+    border-radius: 10px;
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+}
+
+.team-member img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    border: 4px solid #6b4c1d;
+    margin-bottom: 15px;
+}
+
+.team-member h3 {
+    color: #3d2603;
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.team-member p {
+    color: #6b4c1d;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+.h1center {
+    display: flex;
+    justify-content: center;
+}
+
+/* Footer styling */
+footer {
+    background-color: #3d2603;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    margin-top: 40px;
+    font-size: 0.9em;
+}
+
+footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+footer p {
+    margin: 10px 0;
+}
+
+footer .socials {
+    list-style-type: none;
+    margin: 10px 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+footer .socials li {
+    display: inline;
+}
+
+footer .socials li a img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s;
+}
+
+footer .socials li a img:hover {
+    transform: scale(1.2);
+}
+
+footer a {
+    color: #edd1af;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Pim CSS */
+input.afspraak {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffe2be;
+    border: 2px solid #6b4c1d;
+    border-radius: 10px;
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+}
+
+button {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #3d2603; /* Groene kleur */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #6b4c1d; /* Donkerder groen */
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.afspraak1 {
+    display: flex;
+    flex-direction: column;  /* Zet de items onder elkaar */
+    justify-content: center; /* Centreert de inhoud horizontaal */
+    align-items: center;     /* Centreert de inhoud verticaal */
+    border: 2px solid #6b4c1d;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 20px auto;       /* Centreert de div horizontaal */
+    width: fit-content;      /* De breedte wordt aangepast aan de inhoud */
+}
+
+/* Guido's style */
+.home-page-nav {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.home-page-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.home-page-nav ul li {
+    margin: 0;
+}
+
+.home-page-nav ul li a {
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.home-page-main {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.home-page-left-section {
+    flex: 1;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    margin-right: 20px;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: 1px; 
+    border-radius: 10px; 
+}
+
+.home-page-left-section p {
+    margin-bottom: 20px; 
+    font-family: Arial, sans-serif;
+    line-height: 1.6; 
+    color: #333; 
+}
+
+.home-page-left-section p.welcome,
+.home-page-left-section p.skills,
+.home-page-left-section p.atmosphere,
+.home-page-left-section p.community,
+.home-page-left-section p.visit {
+    font-size: 1.3em; 
+    font-weight: bold;
+    color: #2e2f2f;
+}
+
+.home-page-right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.home-page-location-section, 
+.home-page-image-section {
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    text-align: center;
+    border: 1px solid black;
+}
+
+.h3center {
+    display: flex;
+    justify-content: center;
+}
+
+.pcenter {
+    display: flex;
+    justify-content: center;
+}
+
+.picturecenter {
+    display: flex;
+    justify-content: center;
+}
+
+.mail-link {
+    border: 2px solid #6b4c1d;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #3d2603;
+    background-color: #edd1af;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.mail-link:hover {
+    background-color: #6b4c1d;
+    color: #fff;
+    border-color: #3d2603;
+}
+
+/*  */

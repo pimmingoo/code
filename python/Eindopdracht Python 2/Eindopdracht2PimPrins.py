@@ -72,6 +72,7 @@ def main():  # geeft het menu weer
                 clear_console()
                 print("Programma wordt afgesloten.")
                 time.sleep(0.5)
+                clear_console()
                 print("Programma wordt afgesloten")
                 time.sleep(0.5)
                 clear_console()
@@ -88,7 +89,7 @@ def add_book(boekenlijst): # voegt boek to aan de lijst
     print("Boek is toegevoegd.")
     time.sleep(1)
 
-def search_book(boekenlijst): # zoeken in de lijst van boeken
+def search_book(boekenlijst): # zoekt in de lijst van boeken
     title = input("Geef het titel van het boek: ")
     try:
         for boek in boekenlijst:
@@ -115,7 +116,7 @@ def remove_book(boekenlijst): # verwijdert boek uit boekenlijst en het bestand
     
     nieuwe_lijnen = []
     for lijn in lijnen:
-        if lijn.strip().startswith(title + ";"):  # Controleert of de regel met de titel begint
+        if lijn.strip().startswith(title + ";"):  #leest elk ding 1 voor 1 tot dat hij de goeie vind
             boek_gevonden = True
         else:
             nieuwe_lijnen.append(lijn) 

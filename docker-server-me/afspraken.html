@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Afspraak Maken</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="afspraken.html">Afspraak maken</a></li>
+        </ul>
+    </nav>
+    <div class="afspraak1">
+        <input class="afspraak" id="afspraak-maken" type="date" min="<script>document.write(new Date().toISOString().split('T')[0]);</script>">
+        <div class="afspraak2">
+        </div>
+        <h3 class="h3center">Selecteer een kapper:</h3>
+        <div class="afspraak" id="kappers">
+            <label><input type="checkbox" value="George Flowberry"> George Flowberry</label><br>
+            <label><input type="checkbox" value="Nova Curlington"> Nova Curlington</label><br>
+            <label><input type="checkbox" value="Sean Combs"> Sean Combs</label><br>
+            <label><input type="checkbox" value="Victor Shearlock"> Victor Shearlock</label><br>
+        </div>
+        <h3>Naam:</h3>
+        <input type="text" id="naam" placeholder="Naam">
+        <h3>Telefoonnummer:</h3>
+        <input type="tel" id="telefoonnummer" placeholder="Telefoonnummer">
+        <h3>E-mail:</h3>
+        <input type="email" id="email" placeholder="E-mail">
+        <button onclick="makeAfspraak()">Afspraak maken</button>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Barbershop de Peely's. Alle rechten voorbehouden.</p>
+            <ul class="socials">
+                <li><a href="#"><img src="../project site/assets/Facebook.png" alt="Facebook"></a></li>
+                <li><a href="#"><img src="../project site/assets/TikTok.png" alt="TikTok"></a></li>
+                <li><a href="#"><img src="../project site/assets/Instagram.png" alt="Instagram"></a></li>
+            </ul>
+            <p>Contact: <a href="mailto:barbershop@peely.fn">barbershop@peely.fn</a></p>
+        </div>
+    </footer>
+    <script>
+        // Set the minimum date for the date picker to today
+        document.getElementById('afspraak-maken').min = new Date().toISOString().split('T')[0];
+
+        function makeAfspraak() {
+            const date = document.getElementById('afspraak-maken').value;
+            const checkboxes = document.querySelectorAll('#kappers input[type="checkbox"]:checked');
+            const selectedKappers = Array.from(checkboxes).map(checkbox => checkbox.value);
+            const naam = document.getElementById('naam').value.trim();
+            const telefoonnummer = document.getElementById('telefoonnummer').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (!date) {
+                alert('Selecteer een datum voor de afspraak.');
+                return;
+            }
+
+            if (selectedKappers.length === 0) {
+                alert('Selecteer minstens één kapper.');
+                return;
+            }
+
+            if (!naam) {
+                alert('Geef een naam op.');
+                return;
+            }
+
+            if (!telefoonnummer || !/^\d{10}$/.test(telefoonnummer)) {
+                alert('Geef een geldig telefoonnummer op (10 cijfers).');
+                return;
+            }
+
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Geef een geldig emailadres op.');
+                return;
+            }
+
+            alert(`Afspraak gemaakt op ${date} met: ${selectedKappers.join(', ')}\nNaam: ${naam}\nTelefoonnummer: ${telefoonnummer}\nBevestiging wordt verzonden naar: ${email}`);
+        }
+    </script>
+</body>
+</html>
