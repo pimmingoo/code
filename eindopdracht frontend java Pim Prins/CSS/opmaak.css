@@ -1,0 +1,31 @@
+/* nav balk */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    overflow: hidden;
+    border-bottom: 2px solid rgb(4, 16, 60);
+}
+
+li {
+    display: flex;
+    float :left;
+}
+
+li a {
+    display: block  ;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: lightgray;
+}
+
+a.active {
+    background-color: white;
+}
+
