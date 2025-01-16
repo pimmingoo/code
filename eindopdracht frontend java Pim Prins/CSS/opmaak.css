@@ -1,31 +1,147 @@
-/* nav balk */
-ul {
-    list-style-type: none;
+/* Header styling */
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    text-shadow: 2px 2px rgb(0, 77, 0);
+    border: 2px solid transparent;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* Algemene body styling */
+body {
     margin: 0;
     padding: 0;
-    background-color: white;
-    overflow: hidden;
-    border-bottom: 2px solid rgb(4, 16, 60);
+    font-family: Arial, sans-serif;
 }
 
-li {
+/* Main styling */
+main {
     display: flex;
-    float :left;
+    justify-content: center;
+    align-items: stretch; /* Zorgt ervoor dat beide secties dezelfde hoogte krijgen */
+    gap: 20px;
+    padding: 20px;
 }
 
-li a {
-    display: block  ;
-    color: black;
+/* Sectie styling */
+section {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column; /* Zodat de inhoud goed wordt gestapeld */
+}
+
+/* Producten-lijst styling */
+#producten-lijst {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Iets minder ruimte tussen de kaarten */
+    justify-content: center;
+    padding: 10px 0;
+    flex-grow: 1; /* Zorgt ervoor dat de productenlijst zichzelf vult */
+}
+
+/* Producten-card styling */
+.producten-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #ffffff;
     text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 220px; /* Kleiner formaat */
+    height: auto;
 }
 
-li a:hover {
-    background-color: lightgray;
+/* Producten-card hover-effect */
+.producten-card:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+    transition: all 0.2s ease-in-out;
 }
 
-a.active {
-    background-color: white;
+/* Winkelwagen styling */
+#winkelwagen {
+    display: flex;
+    flex-direction: column; /* Zodat de inhoud goed gestapeld wordt */
+    flex-grow: 1; /* Zorgt ervoor dat het winkelmandje even hoog is als de productenlijst */
+    min-height: 150px;
 }
 
+button {
+    padding: 8px 12px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: darkgreen;
+    transition: 0.3s;
+}
+
+
+/* Winkelwagen styling */
+#winkelwagen {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-height: 150px;
+}
+
+#winkelwagen-box {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #ffffff;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    max-height: 300px; /* Max hoogte, scroll als er veel items zijn */
+    overflow-y: auto; /* Scrollbaar bij veel items */
+}
+
+#winkelwagen-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#winkelwagen-items li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+#winkelwagen-items li:last-child {
+    border-bottom: none;
+}
+
+.winkelwagen-button {
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+
+.winkelwagen-button:hover {
+    background-color: darkred;
+    transition: 0.3s;
+}
