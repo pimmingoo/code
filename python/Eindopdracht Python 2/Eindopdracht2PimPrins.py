@@ -1,5 +1,6 @@
 import time
 import os
+import unittest
 
 boekenlijst = []
 
@@ -17,19 +18,16 @@ def main():  # geeft het menu weer
             print("4. Boekenlijst bekijken")
             print("5. Opslaan naar bestand")
             print("6. Statistieken")
-            print("7. Afsluiten")
-            choice = int(input("Kies een optie (1-7): "))
+            print("7. test statistic")
+            print("8. Afsluiten")
+            choice = int(input("Kies een optie (1-8): "))
 
         except ValueError:
             print("Fout: Ongeldige invoer.")
-            continue
+            time.sleep(2)
+            main()
 
         finally:
-
-            if choice not in range(0, 9):
-                print("Fout: Kies een geldige optie tussen 1 en 8.")
-                time.sleep(2)
-                continue
 
             # Voer de actie uit op basis van de keuze
             if choice == 1:
@@ -63,6 +61,11 @@ def main():  # geeft het menu weer
                 show_statistics(boekenlijst)
 
             elif choice == 7:
+                time.sleep(1)
+                clear_console()
+                test_statistics()
+
+            elif choice == 8:
                 clear_console()
                 print("Programma wordt afgesloten...")
                 time.sleep(0.5)
@@ -77,6 +80,11 @@ def main():  # geeft het menu weer
                 time.sleep(0.5)
                 clear_console()
                 break
+
+            else:
+                clear_console()
+                print("Ongeldige optie, probeer een getal tussen de 1-8")
+                time.sleep(2)
 
 def add_book(boekenlijst): # voegt boek to aan de lijst
 
@@ -209,17 +217,38 @@ def load_from_file(boekenlijst): # laadt de lijst van boeken uit een bestand
 def show_statistics(boekenlijst):
     auteurs = {boek['Auteur'] for boek in boekenlijst}
 
-    print("Statistieken:")
+    print("Statistieken:") # laat zien hoeveel boeken en auteurs er zijn
     print(f"Aantal boeken: {len(boekenlijst)}")
     print(f"Aantal auteurs: {len(auteurs)}")
 
-    doorgaan = input("Click Enter om doortegaan")
+    doorgaan = input("Click Enter om doortegaan") 
 
     if doorgaan == "":
         time.sleep(0.5)
 
     else:
         time.sleep(0.5)
+
+
+def test_statistics():
+    # de test
+    class TestBoekenlijst(unittest.TestCase):
+        def test_statistics_empty(self): # test de statistics als er niks in de boekenlijst staat
+            boekenlijst = []
+            self.assertEqual(len(boekenlijst), 0)
+            self.assertEqual(len({boek['Auteur'] for boek in boekenlijst}), 0)
+
+        def test_statistics_with_books(self): # test de statistics als er iets in de boekenlijst staat
+            boekenlijst = [
+                {"title": "Boek1", "Auteur": "Auteur1", "Jaar": 2020},
+                {"title": "Boek2", "Auteur": "Auteur1", "Jaar": 2021},
+            ]
+            self.assertEqual(len(boekenlijst), 2)
+            self.assertEqual(len({boek['Auteur'] for boek in boekenlijst}), 1)
+
+    # laat de test resultaten zien
+    unittest.TextTestRunner().run(unittest.TestLoader().loadTestsFromTestCase(TestBoekenlijst)) 
+    input("Druk op Enter om terug te keren naar het menu.")
 
 load_from_file(boekenlijst)
 main()
