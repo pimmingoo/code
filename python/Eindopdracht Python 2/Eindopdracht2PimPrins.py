@@ -164,8 +164,6 @@ def view_books(boekenlijst): # bekijkt de lijst van boeken
         else:
             time.sleep(0.5)
             
-        
-
 def save_to_file(boekenlijst): 
     file_path = os.path.join(os.path.dirname(__file__), "boekenlijst.csv")
     
