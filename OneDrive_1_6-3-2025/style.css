@@ -1,0 +1,100 @@
+body {
+    background-color: #282828 !important;
+}
+
+.card {
+    background-color: #282828 !important;
+    border: 0px !important;
+    color: white;
+}
+
+.card img {
+    border: transparent;
+}
+
+.card-body {
+    text-align: center;
+    border: 0px;
+}
+
+iframe {
+    border: none;
+    border: transparent;;
+}
+
+.carb {
+    width: 200px !important; /* Maakt de kaart kleiner */
+    border-radius: 15px; /* Afgeronde hoeken */
+    overflow: hidden; /* Zorgt ervoor dat de inhoud binnen de randen blijft */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Optionele schaduw */
+    background-color: #333; /* Donkere achtergrondkleur */
+    padding: 10px;
+    text-align: center;
+    color: white !important; /* Witte tekstkleur */
+}
+
+.carb-body img {
+    width: 100%; /* Zorgt ervoor dat de afbeelding de breedte van de kaart vult */
+    border-radius: 10px; /* Afgeronde hoeken voor de afbeelding */
+}
+
+.carb-body h5, .carb-body p {
+    margin: 5px 0; /* Ruimte tussen tekst en afbeelding */
+}
+
+.track-container {
+    overflow: hidden;
+    width: 100%;
+}
+
+
+.carousel-container {
+    overflow: hidden ;
+    width: 100%;
+}
+
+.carousel-track {
+    display: flex;
+    animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Pas aan op lengte */
+}
+
+.carousel-track img {
+    width: 200px;
+    margin-right: 1rem;
+    border-radius: 8px; /* Optioneel voor stijl */
+}
+
+.song-container {
+    display: flex;
+    align-items: center;  /* Verticaal centreren */
+    justify-content: center; /* Horizontaal centreren */
+    margin-bottom: 10px;
+}
+
+.song-container {
+    display: flex;
+    flex-direction: column; /* Zorgt ervoor dat de inhoud verticaal gestapeld wordt */
+    align-items: center;    /* Centreert de inhoud horizontaal */
+    margin-bottom: 10px;
+}
+
+.song-text {
+    color: white;  /* Maak de tekst wit */
+    text-align: center;  /* Centreert de tekst horizontaal */
+}
+
+.song-text p {
+    margin: 0;
+    padding: 0;
+}
+
+.song-text p:first-child {
+    font-weight: bold;
+}
+
+

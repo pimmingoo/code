@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Game</title>
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1"></script>
+  <!-- Hammer.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f8c8dc;
+      transition: background-color 0.3s ease;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    body.shake {
+      animation: shake 0.3s ease-in-out;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
+    }
+    body.split-background {
+      background: linear-gradient(to right, #FF0000 50%, #4CAF50 50%) !important;
+    }
+    h1 {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+    }
+    /* Aangepaste instructieparagraaf */
+    #instruction {
+      position: absolute;
+      left: 50%;
+      top: calc(50% - 300px);
+      transform: translateX(-50%);
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .hidden {
+      display: none;
+    }
+    .map {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .level {
+      width: 80px;
+      height: 80px;
+      background-color: #ff69b4;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .completed {
+      background-color: #4CAF50 !important;
+      cursor: default;
+    }
+    .failed {
+      background-color: #FF0000 !important;
+      cursor: default;
+    }
+    .card {
+      width: 300px;
+      height: 200px;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: bold;
+      border-radius: 10px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.5s;
+    }
+    /* Element om het resultaat te tonen */
+    #result {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #fff;
+      padding: 20px;
+      border: 2px solid #4CAF50;
+      border-radius: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      z-index: 10;
+    }
+    /* Leaderboard stijl */
+    #leaderboardSection {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 400px;
+      background-color: #fff;
+      padding: 10px;
+      border: 2px solid #4CAF50;
+      border-radius: 10px;
+      text-align: center;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      /* Zorgt ervoor dat de leaderboard boven de result div komt te liggen */
+      z-index: 20;
+    }
+    #leaderboardSection h2 {
+      margin-top: 0;
+    }
+    #leaderboardList {
+      list-style-type: none;
+      padding: 0;
+    }
+    #leaderboardList li {
+      border-bottom: 1px solid #ddd;
+      padding: 5px 0;
+    }
+    #leaderboardForm {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    #leaderboardForm input {
+      padding: 5px;
+      flex: 1;
+    }
+    #leaderboardForm button {
+      padding: 5px 10px;
+    }
+    /* Knop voor het resetten van de leaderboard */
+    #resetLeaderboardBtn {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #FF5722;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    /* Verplaats de levels ietsje hoger */
+    #levelsContainer {
+      margin-top: -50px;
+    }
+    /* Media query voor telefoons */
+    @media only screen and (max-width: 600px) {
+      .card {
+        width: 300px;
+        height: 400px;
+        font-size: 28px;
+      }
+      .level {
+        width: 80px;
+        height: 80px;
+        font-size: 16px;
+        margin: 5px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Quiz Game</h1>
+  <p id="instruction" class="hidden">links is nep, rechts is echt</p>
+  
+  <!-- Container voor levels en leaderboard -->
+  <div id="levelsContainer">
+    <!-- De levels worden via JavaScript toegevoegd in de map-container -->
+    <div class="map" id="map"></div>
+    <!-- Leaderboard sectie wordt alleen getoond in de levels-weergave -->
+    <div id="leaderboardSection">
+      <h2>Leaderboard</h2>
+      <ul id="leaderboardList">
+        <!-- Leaderboard items worden via JavaScript toegevoegd -->
+      </ul>
+      <!-- Reset-knop voor de leaderboard -->
+      <button id="resetLeaderboardBtn">Reset Leaderboard</button>
+      <!-- Formulier wordt pas getoond na het beantwoorden van alle vragen -->
+      <form id="leaderboardForm" class="hidden">
+        <input type="text" id="playerName" placeholder="Je naam" required>
+        <button type="submit">Opslaan</button>
+      </form>
+    </div>
+  </div>
+  
+  <div id="questionContainer" class="hidden">
+    <div id="questionCard" class="card" style="touch-action: pan-y; -webkit-user-select: none; -webkit-touch-callout: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></div>
+  </div>
+  
+  <!-- Div voor het resultaat, standaard verborgen -->
+  <div id="result" class="hidden"></div>
+  
+  <!-- Preload je audio (optioneel) -->
+  <audio id="correctSound" src="confetti-pop-sound-effect.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="wrong-answer-sound-effect.mp3" preload="auto"></audio>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const levels = [
+        { question: "Je krijgt een telefoontje van je bank over een recent datalek. Ze willen weten of jouw pincode en account ook getroffen zijn.", correct: false },
+        { question: "Je ontvangt een e-mail van een prins uit Saoedi-Arabië die beweert dat hij geld nodig heeft. Hij vraagt je eerst wat geld te sturen om je bankrekening en betrouwbaarheid te verifiëren.", correct: false },
+        { question: "Je probeert op Facebook in te loggen. Ze sturen je een e-mail met een verificatiecode die je op de website invoert.", correct: true },
+        { question: "Een vriend stuurt je onverwachts een prototype van een spel en vraagt of je het kunt downloaden en uitproberen.", correct: false },
+        { question: "Je ontvangt een e-mail van de overheid waarin staat dat er nieuwe berichten in je Berichtenbox staan die je moet bekijken.", correct: true },
+        { question: "Je krijgt een telefoontje van een onbekend nummer. Ze vragen je om je bankgegevens te bevestigen.", correct: false }
+      ];
+
+      let currentLevel = null;
+      
+      // Audio-elementen
+      const correctSound = document.getElementById("correctSound");
+      const wrongSound = document.getElementById("wrongSound");
+
+      // Ontgrendel audio op mobiele apparaten
+      const unlockAudio = function() {
+        correctSound.play().then(() => {
+          correctSound.pause();
+          correctSound.currentTime = 0;
+        }).catch(() => {});
+        wrongSound.play().then(() => {
+          wrongSound.pause();
+          wrongSound.currentTime = 0;
+        }).catch(() => {});
+        document.removeEventListener("touchstart", unlockAudio);
+      };
+      document.addEventListener("touchstart", unlockAudio);
+
+      function loadMap() {
+        const map = document.getElementById("map");
+        if (!map) return;
+        map.innerHTML = "";
+        levels.forEach((_, index) => {
+          const level = document.createElement("div");
+          level.classList.add("level");
+          level.textContent = index + 1;
+          if (localStorage.getItem("level" + index) === "completed") {
+            level.classList.add("completed");
+          } else if (localStorage.getItem("level" + index) === "failed") {
+            level.classList.add("failed");
+          } else {
+            level.onclick = () => startLevel(index);
+          }
+          map.appendChild(level);
+        });
+      }
+      
+      function allLevelsPlayed() {
+        for (let i = 0; i < levels.length; i++) {
+          const status = localStorage.getItem("level" + i);
+          if (status !== "completed" && status !== "failed") {
+            return false;
+          }
+        }
+        return true;
+      }
+      
+      function computeScore() {
+        let score = 0;
+        for (let i = 0; i < levels.length; i++) {
+          if (localStorage.getItem("level" + i) === "completed") {
+            score++;
+          }
+        }
+        return score;
+      }
+      
+      function resetGame() {
+        // Verwijder alleen de level-statussen zodat de leaderboard behouden blijft
+        for (let i = 0; i < levels.length; i++) {
+          localStorage.removeItem("level" + i);
+        }
+        loadMap();
+      }
+  
+      function startLevel(index) {
+        currentLevel = index;
+        // Verberg de levels en leaderboard wanneer een vraag wordt getoond
+        document.getElementById("levelsContainer").classList.add("hidden");
+        document.getElementById("questionContainer").classList.remove("hidden");
+        const card = document.getElementById("questionCard");
+        card.textContent = levels[index].question;
+        card.style.transform = "translate(-50%, -50%)";
+        document.body.classList.add("split-background");
+
+        // Toon de instructieparagraaf
+        document.getElementById("instruction").classList.remove("hidden");
+      }
+  
+      function answer(correct) {
+        if (currentLevel === null) return;
+        document.body.classList.remove("split-background");
+
+        if (correct === levels[currentLevel].correct) {
+          // Correct antwoord
+          localStorage.setItem("level" + currentLevel, "completed");
+          correctSound.currentTime = 0;
+          correctSound.play();
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+          });
+        } else {
+          // Fout antwoord
+          localStorage.setItem("level" + currentLevel, "failed");
+          wrongSound.currentTime = 0;
+          wrongSound.play();
+          document.body.classList.add("shake");
+          document.body.style.backgroundColor = "#ff0000";
+          setTimeout(() => {
+            document.body.classList.remove("shake");
+            document.body.style.backgroundColor = "#f8c8dc";
+          }, 500);
+        }
+        document.getElementById("levelsContainer").classList.remove("hidden");
+        document.getElementById("questionContainer").classList.add("hidden");
+        loadMap();
+        document.getElementById("instruction").classList.add("hidden");
+
+        if (allLevelsPlayed()) {
+          const score = computeScore();
+          const resultDiv = document.getElementById("result");
+          resultDiv.textContent = "Gefeliciteerd, je hebt alle levels voltooid! Je hebt " + score + " punten.";
+          resultDiv.classList.remove("hidden");
+          showLeaderboardForm(score);
+        }
+      }
+      
+      // Toont het leaderboardformulier en voegt de entry toe
+      function showLeaderboardForm(score) {
+        const leaderboardForm = document.getElementById("leaderboardForm");
+        leaderboardForm.classList.remove("hidden");
+        leaderboardForm.onsubmit = function(e) {
+          e.preventDefault();
+          const playerName = document.getElementById("playerName").value;
+          if (playerName.trim() !== "") {
+            let leaderboard = JSON.parse(localStorage.getItem("leaderboard") || "[]");
+            leaderboard.push({ name: playerName, score: score });
+            leaderboard.sort((a, b) => b.score - a.score);
+            localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+            updateLeaderboardList();
+            leaderboardForm.classList.add("hidden");
+            // Reset direct zonder wachttijd
+            resetGame();
+            document.getElementById("result").classList.add("hidden");
+            document.getElementById("playerName").value = "";
+          }
+        };
+      }
+      
+      function updateLeaderboardList() {
+        const leaderboardList = document.getElementById("leaderboardList");
+        leaderboardList.innerHTML = "";
+        let leaderboard = JSON.parse(localStorage.getItem("leaderboard") || "[]");
+        leaderboard.forEach(entry => {
+          const li = document.createElement("li");
+          li.textContent = entry.name + " - " + entry.score + " punten";
+          leaderboardList.appendChild(li);
+        });
+      }
+      
+      // Reset leaderboard knop: luister naar zowel click als touchend events
+      let touchHandled = false;
+      function resetLeaderboardHandler() {
+        if (confirm("Weet je zeker dat je de leaderboard wilt resetten?")) {
+          localStorage.removeItem("leaderboard");
+          updateLeaderboardList();
+        }
+      }
+      const resetBtn = document.getElementById("resetLeaderboardBtn");
+      resetBtn.addEventListener("touchend", function(e) {
+        e.preventDefault(); // voorkom dubbele events
+        touchHandled = true;
+        resetLeaderboardHandler();
+      });
+      resetBtn.addEventListener("click", function(e) {
+        if (!touchHandled) {
+          resetLeaderboardHandler();
+        }
+        // Reset de vlag zodat de volgende interactie weer goed verloopt
+        touchHandled = false;
+      });
+      
+      // Stel Hammer.js in voor swipe events op de vraagkaart
+      const card = document.getElementById("questionCard");
+      const hammer = new Hammer(card);
+      hammer.on("swipeleft", function() {
+        card.style.transform = "translate(-250%, -50%)";
+        setTimeout(() => answer(false), 500);
+      });
+      hammer.on("swiperight", function() {
+        card.style.transform = "translate(150%, -50%)";
+        setTimeout(() => answer(true), 500);
+      });
+  
+      loadMap();
+      updateLeaderboardList();
+    });
+  </script>
+</body>
+</html>
