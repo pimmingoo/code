@@ -1,0 +1,73 @@
+/* Card.css */
+
+/* 1. De buitenste kaart-container */
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  /* stel een vaste breedte in, of laat de parent het bepalen */
+  width: 280px;
+  margin: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover‐effect: iets meer “pop” */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* 2. De afbeelding bovenaan */
+.card-image {
+  width: 100%;           /* vult de hele breedte van .card */
+  height: 180px;         /* vaste hoogte; je kunt dit naar wens aanpassen */
+  object-fit: cover;     /* zorgt dat de afbeelding netjes bijgesneden wordt */
+}
+
+/* 3. De inhoud (tekst + knop) */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  flex-grow: 1;          /* zodat content‐div altijd de ruimte pakt */
+}
+
+/* 3a. Titel onder de afbeelding */
+.card-title {
+  font-size: 1.25rem;    /* bijvoorbeeld 20px */
+  margin: 0 0 8px 0;
+  color: #333333;
+  text-align: center;
+}
+
+/* 3b. Beschrijvingstekst */
+.card-description {
+  font-size: 0.95rem;    /* bijvoorbeeld 15px */
+  line-height: 1.4;
+  color: #555555;
+  flex-grow: 1;          /* zodat de beschrijving zoveel mogelijk ruimte pakt */
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+/* 3c. De knop onderaan */
+.card-button {
+  align-self: center;            /* centreert de knop horizontaal */
+  padding: 8px 20px;             /* verticale/horizontale padding */
+  font-size: 0.95rem;
+  background-color: transparent; /* transparante achtergrond */
+  border: 2px solid #4CAF50;     /* groene rand */
+  border-radius: 4px;
+  color: #4CAF50;                /* groene tekst */
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Hover‐effect voor de knop */
+.card-button:hover {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
