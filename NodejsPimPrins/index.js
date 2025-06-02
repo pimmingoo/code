@@ -4,7 +4,7 @@ const app = express();
 const PORT = 3000;
 
 app.get("/", (req, res) => {
-res.send("Hallo vanaf je sinterklaas Node-server!");
+res.send(chalk.red("Hallo vanaf je sinterklaas Node-server!"));
 });
 
 app.listen(PORT, () => {
