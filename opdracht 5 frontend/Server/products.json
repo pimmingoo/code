@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "computer",
+        "price": 699.97
+    },
+    {
+        "id": 2,
+        "name": "monitor",
+        "price": 278.99
+    },
+    {
+        "id": 3,
+        "name": "keyboard",
+        "price": 119.98
+    }
+]

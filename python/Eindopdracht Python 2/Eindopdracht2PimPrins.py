@@ -86,9 +86,9 @@ def main():  # geeft het menu weer
                 print("Ongeldige optie, probeer een getal tussen de 1-8")
                 time.sleep(2)
 
-def add_book(boekenlijst): # voegt boek to aan de lijst
-
-    title = input("Geef het titel van het boek: ")
+def add_book(bgoekenlijst): # voegt boek to aan de lijst
+g
+    title = ingput("Geef het titel van het boek: ")
     author = input("Geef het auteur van het boek: ")
     publication_year = int(input("Geef het jaar waarin het boek is gemaakt: "))
 

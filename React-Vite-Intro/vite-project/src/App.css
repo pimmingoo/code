@@ -34,9 +34,15 @@
 }
 
 .card {
-  padding: 2em;
+  padding: 0.3em;
 }
 
 .read-the-docs {
   color: #888;
+}
+
+.app-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
