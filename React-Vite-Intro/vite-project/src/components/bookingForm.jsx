@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./bookingForm.css"; // Zorg ervoor dat je een CSS-bestand hebt voor styling
+import "./bookingForm.css"; 
 
 export default function BookingForm({ cards }) {
     const { id } = useParams();

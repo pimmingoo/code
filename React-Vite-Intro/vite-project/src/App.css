@@ -38,11 +38,11 @@
   color: #888;
 }
 
-/* Zorg dat de container altijd (maximaal) de volledige breedte beslaat */
+
 .app-container {
   width: 100%;
-  max-width: 1200px;     /* of welke max‑breedte je wilt */
-  margin: 0 auto;        /* centreert in het scherm */
+  max-width: 1200px;     
+  margin: 0 auto;       
   padding: 20px;
   box-sizing: border-box;
 }
@@ -55,21 +55,21 @@
   padding: 10px 15px;
   font-size: 16px;
   box-sizing: border-box;
-  margin: 0 auto 20px;   /* <— 0 boven, auto zijkanten, 20px onder */
+  margin: 0 auto 20px; 
 }
 
 
 .card-list {
   display: flex;
-  flex-wrap: wrap;         /* óók bij meerdere items op nieuwe regel */
+  flex-wrap: wrap;      
   justify-content: center; 
-  gap: 20px;               /* ruimte tussen de kaarten */
-  width: 100%;             /* vult altijd de volledige breedte van de parent */
-  min-width: 500px;        /* óf een breder minimum als je wilt */
+  gap: 20px;           
+  width: 100%;             
+  min-width: 500px;        
   box-sizing: border-box;
 }
 .card {
-  flex: 1 1 250px;         /* elke kaart minimaal 250px, groeit mee */
-  max-width: 300px;        /* optioneel: voorkom dat kaarten té breed worden */
+  flex: 1 1 250px;       
+  max-width: 300px;       
 }
 

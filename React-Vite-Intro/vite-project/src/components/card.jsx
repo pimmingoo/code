@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./card.css";
 
+
 export default function Card({ id, title, description, imageUrl }) {
     const navigate = useNavigate();
 

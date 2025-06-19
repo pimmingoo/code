@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Card from "./components/card";
 import CardDetail from "./components/cardDetail.jsx";
-import BookingForm from "./components/bookingForm.jsx"; // ✅ Nieuw toegevoegd
+import BookingForm from "./components/bookingForm.jsx"; 
 import "./App.css";
 
 export default function App() {
@@ -117,7 +117,7 @@ export default function App() {
             }
           />
           <Route path="/detail/:id" element={<CardDetail cards={cards} />} />
-          <Route path="/book/:id" element={<BookingForm cards={cards} />} /> {/* ✅ Toegevoegde boeking route */}
+          <Route path="/book/:id" element={<BookingForm cards={cards} />} /> {}
         </Routes>
       </div>
     </Router>
