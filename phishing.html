@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Login pagina</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #70B9C8;
+        }
+
+        .container {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            margin: 100px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        input, button {
+            border-radius: 15px;
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        #content {
+            display: none;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="login">
+    <h2>Inloggen</h2>
+    <input type="text" id="username" placeholder="Gebruikersnaam">
+    <input type="password" id="password" placeholder="Wachtwoord">
+    <button onclick="login()">Login</button>
+</div>
+
+<div id="content">
+    <h1>Welkom op de website 🎉</h1>
+    <p>Je bent succesvol ingelogd.</p>
+    <p style="font-size: 8px;">dankjewel voor je inlog gegevens</p>
+</div>
+
+<script>
+function login() {
+    // alles accepteren
+    document.getElementById("login").style.display = "none";
+    document.getElementById("content").style.display = "block";
+}
+</script>
+
+</body>
+</html>
