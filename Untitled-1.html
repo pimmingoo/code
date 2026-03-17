@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natuurhelden 🌿</title>
+
+<style>
+/* ===============================
+   BASIS STYLING
+   Kleurrijk en speels ontwerp
+================================= */
+
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    margin: 0;
+    background: linear-gradient(180deg, #a8e063, #56ab2f);
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    margin-top: 15px;
+}
+
+.container {
+    padding: 15px;
+    padding-bottom: 70px; /* ruimte voor tabbar */
+}
+
+/* ===============================
+   TABBLADEN (MOBIEL VRIENDELIJK)
+================================= */
+
+.tabs {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    background: #ffffff;
+    border-top: 3px solid #4CAF50;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    background: #e8f5e9;
+}
+
+.tab-button.active {
+    background: #c8e6c9;
+}
+
+/* ===============================
+   MISSIES
+================================= */
+
+.mission {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.mission button {
+    margin-top: 8px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #ff9800;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.mission.completed {
+    background: #dcedc8;
+    text-decoration: line-through;
+}
+
+/* ===============================
+   VOORTGANG
+================================= */
+
+.progress-bar {
+    background: #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.progress-fill {
+    height: 20px;
+    width: 0%;
+    background: #4CAF50;
+    transition: width 0.5s;
+}
+
+/* ===============================
+   BADGES
+================================= */
+
+.badge {
+    font-size: 50px;
+    margin: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+</style>
+</head>
+<body>
+
+<h1>🌿 Natuurhelden Avontuur 🌟</h1>
+
+<div class="container">
+
+    <!-- ===============================
+         TAB 1: MISSIES
+    ================================= -->
+    <div id="missies" class="tab-content">
+        <div class="mission" data-id="0">
+            <h3>🐞 Insectensafari</h3>
+            <p>Zoek 3 verschillende insecten in de tuin of het park.</p>
+            <button onclick="completeMission(0)">Voltooid</button>
+        </div>
+
+        <div class="mission" data-id="1">
+            <h3>🌳 Boomdetective</h3>
+            <p>Knuffel een boom en verzamel 2 verschillende blaadjes.</p>
+            <button onclick="completeMission(1)">Voltooid</button>
+        </div>
+
+        <div class="mission" data-id="2">
+            <h3>🗑️ Super Opruimer</h3>
+            <p>Raap 5 stukjes afval op (met hulp van een volwassene).</p>
+            <button onclick="completeMission(2)">Voltooid</button>
+        </div>
+    </div>
+
+    <!-- ===============================
+         TAB 2: VOORTGANG
+    ================================= -->
+    <div id="voortgang" class="tab-content hidden">
+        <h2>⭐ Jouw XP: <span id="xp">0</span></h2>
+        <h3>Level: <span id="level">1</span></h3>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <p>Op naar het volgende level! 🚀</p>
+    </div>
+
+    <!-- ===============================
+         TAB 3: BELONINGEN
+    ================================= -->
+    <div id="beloningen" class="tab-content hidden">
+        <h2>🏅 Jouw Badges</h2>
+        <div id="badges"></div>
+    </div>
+
+</div>
+
+<!-- ===============================
+     TAB KNOPPEN ONDERAAN
+================================= -->
+<div class="tabs">
+    <div class="tab-button active" onclick="showTab('missies', this)">🧭 Missies</div>
+    <div class="tab-button" onclick="showTab('voortgang', this)">📊 Voortgang</div>
+    <div class="tab-button" onclick="showTab('beloningen', this)">🎁 Beloningen</div>
+</div>
+
+<script>
+/* =====================================
+   BASIS VARIABELEN
+===================================== */
+
+let xp = 0;
+let completedMissions = [];
+
+/* =====================================
+   DATA OPSLAAN EN LADEN (localStorage)
+===================================== */
+
+// Laad opgeslagen gegevens bij het openen
+window.onload = function() {
+    const savedXP = localStorage.getItem("xp");
+    const savedMissions = localStorage.getItem("completedMissions");
+
+    if (savedXP) xp = parseInt(savedXP);
+    if (savedMissions) completedMissions = JSON.parse(savedMissions);
+
+    updateUI();
+};
+
+// Sla gegevens op
+function saveData() {
+    localStorage.setItem("xp", xp);
+    localStorage.setItem("completedMissions", JSON.stringify(completedMissions));
+}
+
+/* =====================================
+   MISSIE VOLTOOIEN
+===================================== */
+
+function completeMission(id) {
+
+    // Als missie al voltooid is, doe niets
+    if (completedMissions.includes(id)) return;
+
+    completedMissions.push(id);
+    xp += 10; // Elke missie = 10 XP
+
+    saveData();
+    updateUI();
+}
+
+/* =====================================
+   UI BIJWERKEN
+===================================== */
+
+function updateUI() {
+
+    // Update XP en level
+    document.getElementById("xp").textContent = xp;
+
+    const level = Math.floor(xp / 30) + 1;
+    document.getElementById("level").textContent = level;
+
+    // Update progress bar (30 XP per level)
+    const progressPercent = (xp % 30) / 30 * 100;
+    document.getElementById("progressFill").style.width = progressPercent + "%";
+
+    // Update missie stijl
+    document.querySelectorAll(".mission").forEach(mission => {
+        const id = parseInt(mission.getAttribute("data-id"));
+        if (completedMissions.includes(id)) {
+            mission.classList.add("completed");
+        }
+    });
+
+    // Update badges
+    const badgesDiv = document.getElementById("badges");
+    badgesDiv.innerHTML = "";
+
+    if (completedMissions.length >= 3) {
+        badgesDiv.innerHTML += "<div class='badge'>🌟</div><p>Echte Natuurheld!</p>";
+    }
+}
+
+/* =====================================
+   TAB WISSELEN
+===================================== */
+
+function showTab(tabId, element) {
+
+    document.querySelectorAll(".tab-content").forEach(tab => {
+        tab.classList.add("hidden");
+    });
+
+    document.getElementById(tabId).classList.remove("hidden");
+
+    document.querySelectorAll(".tab-button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    element.classList.add("active");
+}
+
+</script>
+
+</body>
+</html>
