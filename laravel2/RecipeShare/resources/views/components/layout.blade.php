@@ -33,7 +33,7 @@
                                     <a href="{{ route('home') }}" @class(['rounded-md px-3 py-2 text-sm font-medium', 'bg-orange-50 text-orange-700' => request()->routeIs('home'), 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' => ! request()->routeIs('home')])>
                                         Home
                                     </a>
-                                    <a href="#" @class(['rounded-md px-3 py-2 text-sm font-medium', 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'])>
+                                    <a href="{{ route('recipes.index') }}" @class(['rounded-md px-3 py-2 text-sm font-medium', 'bg-orange-50 text-orange-700' => request()->routeIs('recipes.index'), 'text-gray-600 hover:bg-gray-100 hover:text-gray-900' => ! request()->routeIs('recipes.index')])>
                                         Browse Recipes
                                     </a>
                                 </div>
@@ -42,33 +42,40 @@
 
                         {{-- Desktop right side --}}
                         <div class="hidden md:flex items-center gap-3">
-                            <a href="#" class="inline-flex items-center gap-1.5 rounded-md bg-orange-500 px-3 py-2 text-sm font-medium text-white hover:bg-orange-600">
-                                <svg class="size-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
-                                </svg>
-                                Add Recipe
-                            </a>
+                            @auth
+                                <a href="{{ route('recipes.create') }}" class="inline-flex items-center gap-1.5 rounded-md bg-orange-500 px-3 py-2 text-sm font-medium text-white hover:bg-orange-600">
+                                    <svg class="size-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+                                    </svg>
+                                    Add Recipe
+                                </a>
+                            @endauth
 
                             {{-- Profile dropdown --}}
                             <div class="relative" id="profile-menu">
                                 <button onclick="document.getElementById('profile-dropdown').classList.toggle('hidden')" type="button" class="flex items-center gap-2 rounded-full focus:outline-2 focus:outline-offset-2 focus:outline-orange-500">
                                     <span class="sr-only">Open user menu</span>
-                                    <span class="size-8 rounded-full bg-orange-100 flex items-center justify-center text-sm font-medium text-orange-700">
-                                        {{ auth()->check() ? strtoupper(substr(auth()->user()->name, 0, 1)) : 'G' }}
-                                    </span>
+                                    @if (auth()->check() && auth()->user()->avatar)
+                                        <img src="{{ Storage::disk('public')->url(auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}" class="size-8 rounded-full object-cover ring-1 ring-gray-200" />
+                                    @else
+                                        <span class="size-8 rounded-full bg-orange-100 flex items-center justify-center text-sm font-medium text-orange-700">
+                                            {{ auth()->check() ? strtoupper(substr(auth()->user()->first_name, 0, 1)) : 'G' }}
+                                        </span>
+                                    @endif
                                 </button>
                                 <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 z-10">
                                     @auth
                                         <div class="px-4 py-2 text-xs text-gray-500 border-b border-gray-100">{{ auth()->user()->name }}</div>
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Recipes</a>
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Profile</a>
-                                        <form method="POST" action="#">
+                                        <a href="{{ route('recipes.my') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">My Recipes</a>
+                                        <a href="{{ route('saved-recipes.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Saved Recipes</a>
+                                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Profile</a>
+                                        <form method="POST" action="{{ route('logout') }}">
                                             @csrf
                                             <button type="submit" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Sign out</button>
                                         </form>
                                     @else
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Sign in</a>
-                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Register</a>
+                                        <a href="{{ route('login') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Sign in</a>
+                                        <a href="{{ route('register') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Register</a>
                                     @endauth
                                 </div>
                             </div>
@@ -91,32 +98,39 @@
                 <div id="mobile-menu" class="hidden md:hidden border-t border-gray-200">
                     <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                         <a href="{{ route('home') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Home</a>
-                        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Browse Recipes</a>
-                        <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Add Recipe</a>
+                        <a href="{{ route('recipes.index') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Browse Recipes</a>
+                        @auth
+                            <a href="{{ route('recipes.create') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">Add Recipe</a>
+                        @endauth
                     </div>
                     <div class="border-t border-gray-200 pt-4 pb-3">
                         @auth
                             <div class="flex items-center px-5">
-                                <span class="size-10 rounded-full bg-orange-100 flex items-center justify-center text-base font-medium text-orange-700">
-                                    {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                                </span>
+                                @if (auth()->user()->avatar)
+                                    <img src="{{ Storage::disk('public')->url(auth()->user()->avatar) }}" alt="{{ auth()->user()->name }}" class="size-10 rounded-full object-cover ring-1 ring-gray-200" />
+                                @else
+                                    <span class="size-10 rounded-full bg-orange-100 flex items-center justify-center text-base font-medium text-orange-700">
+                                        {{ strtoupper(substr(auth()->user()->first_name, 0, 1)) }}
+                                    </span>
+                                @endif
                                 <div class="ml-3">
                                     <div class="text-base font-medium text-gray-800">{{ auth()->user()->name }}</div>
                                     <div class="text-sm font-medium text-gray-500">{{ auth()->user()->email }}</div>
                                 </div>
                             </div>
                             <div class="mt-3 space-y-1 px-2">
-                                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100">My Recipes</a>
-                                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100">Profile</a>
-                                <form method="POST" action="#">
+                                <a href="{{ route('recipes.my') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100">My Recipes</a>
+                                <a href="{{ route('saved-recipes.index') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100">Saved Recipes</a>
+                                <a href="{{ route('profile.edit') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100">Profile</a>
+                                <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="w-full text-left rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100">Sign out</button>
                                 </form>
                             </div>
                         @else
                             <div class="mt-3 space-y-1 px-2">
-                                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100">Sign in</a>
-                                <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100">Register</a>
+                                <a href="{{ route('login') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100">Sign in</a>
+                                <a href="{{ route('register') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-100">Register</a>
                             </div>
                         @endauth
                     </div>
